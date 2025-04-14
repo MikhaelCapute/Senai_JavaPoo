@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;controller.CaixaDeDialogo.java&apos; to &apos;Mensagens.java&apos;&#x0A;- Original project: &apos;Gui02_CaixaDeDialogo&apos;&#x0A;- Original element: &apos;controller.CaixaDeDialogo.java&apos;&#x0A;- Renamed element: &apos;controller.Mensagens.java&apos;" description="Rename compilation unit &apos;CaixaDeDialogo.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;controller{CaixaDeDialogo.java" name="Mensagens.java" references="false" stamp="1726012757349" version="1.0"/>
+</session>

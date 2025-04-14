@@ -1,0 +1,101 @@
+package controller;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+
+import model.Cliente;
+import model.DAO.ClienteDAO;
+
+public class ControleDeClientesGUI extends JFrame{
+
+	JLabel labelNomeAdicionar = new JLabel("Nome:");
+	JLabel labelCpfAdicionar = new JLabel("CPF:");
+	JLabel labelEmailAdicionar = new JLabel("E-mail:");
+	
+	JTextField textoNomeAdicionar = new JTextField();
+	JTextField textoCpfAdicionar = new JTextField();
+	JTextField textoEmailAdicionar = new JTextField();
+	
+	JTabbedPane abas = new JTabbedPane();
+	
+	JPanel painelAdicionar = new JPanel();
+	JPanel painelBuscarTodos = new JPanel();
+	//...
+	
+	
+			
+	public ControleDeClientesGUI() {
+		super("Controle de Clientes");
+		
+		JPanel painelFormularioAdicionar = new JPanel(new GridLayout(3,2,5,5));
+		painelFormularioAdicionar.add(labelNomeAdicionar);
+		painelFormularioAdicionar.add(textoNomeAdicionar);
+		painelFormularioAdicionar.add(labelCpfAdicionar);
+		painelFormularioAdicionar.add(textoCpfAdicionar);
+		painelFormularioAdicionar.add(labelEmailAdicionar);
+		painelFormularioAdicionar.add(textoEmailAdicionar);
+		
+		JButton botaoAdicionar = new JButton("Adicionar Cliente");
+		botaoAdicionar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nome = textoNomeAdicionar.getText();
+				String cpf = textoCpfAdicionar.getText();
+				String email = textoEmailAdicionar.getText();
+				
+				if(!nome.isEmpty() && !cpf.isEmpty() && !email.isEmpty()) {
+					Cliente cliente = ClienteDAO.inserir(nome, cpf, email);
+					if(cliente != null) {
+						JOptionPane.showMessageDialog(botaoAdicionar, "Cliente adicionado com sucesso.\n"+
+					    cliente.toString());
+						textoNomeAdicionar.setText("");
+						textoCpfAdicionar.setText("");
+						textoEmailAdicionar.setText("");
+					}else {
+						JOptionPane.showMessageDialog(botaoAdicionar, "Erro ao adicionar cliente.","Adicionar Cliente",JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					JOptionPane.showMessageDialog(botaoAdicionar, "Favor, preencher todos os campos.","Adicionar Cliente",JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
+		
+		JPanel painelBotaoAdicionar = new JPanel();
+		painelBotaoAdicionar.add(botaoAdicionar);
+		
+		
+		painelAdicionar.setLayout(new BorderLayout());
+		painelAdicionar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		painelAdicionar.add(painelFormularioAdicionar,BorderLayout.NORTH);
+		painelAdicionar.add(painelBotaoAdicionar,BorderLayout.CENTER);
+		
+		abas.addTab("Adicionar Cliente", painelAdicionar);
+		abas.addTab("Buscar Todos", painelBuscarTodos);
+		
+		add(abas);
+		setSize(700, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
+
+	}
+	
+	public static void main(String[] args) {
+		new ControleDeClientesGUI();
+
+	}
+
+}
